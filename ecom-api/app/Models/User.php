@@ -18,11 +18,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'user_type',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'gender',
+        'address',
+        'city',
+        'state',
+        'pincode',
+        'billing_address',
+        'billing_city',
+        'billing_state',
+        'billing_pincode'
     ];
-
+    
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -40,5 +52,20 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'email' => 'string',
+        'password' => 'string',
+        'user_type' => 'string',
+        'first_name' => 'string',
+        'middle_name' => 'string',
+        'last_name' => 'string',
+        'gender' => 'string',
+        'address' => 'string',
+        'city' => 'string',
+        'state' => 'string',
+        'pincode' => 'integer',
+        'billing_address' => 'string',
+        'billing_city' => 'string',
+        'billing_state' => 'string',
+        'billing_pincode' => 'string'
     ];
 }
