@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function() {
     Route::POST('register', 'UserController@register');
+    Route::POST('login', 'UserController@login');
 });
