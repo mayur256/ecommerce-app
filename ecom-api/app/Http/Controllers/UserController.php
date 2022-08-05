@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+// Mailable classes
+use App\Mail\UserRegistered;
 
 class UserController extends Controller
 {
@@ -52,6 +56,8 @@ class UserController extends Controller
             try {
                 $inputs['password'] = Hash::make($inputs['password']);
                 $resPayload = User::create($inputs);
+
+                $this->sendRegistrationNotification($resPayload);
             } catch(Exception $ex) {
                 $resCode = 500;
                 $error = true;
@@ -125,5 +131,22 @@ class UserController extends Controller
             'error' => $error,
             'payload' => $resPayload,
         ], $resCode);
+    }
+
+    /**
+     * @param {string} userName
+     * @return void
+     * @desc - 
+     */
+    private function sendRegistrationNotification(User $user) {
+        $userName = $user->first_name . "  " . $user->last_name;
+        $email = $user->email;
+
+        try {
+            Mail::to($email)
+            ->send(new UserRegistered($userName));
+        } catch (Exception $ex) {
+
+        }
     }
 }
