@@ -32,7 +32,9 @@ class User extends Authenticatable
         'billing_address',
         'billing_city',
         'billing_state',
-        'billing_pincode'
+        'billing_pincode',
+        'gst_number',
+        'organization'
     ];
     
     /**
@@ -66,6 +68,8 @@ class User extends Authenticatable
         'billing_address' => 'string',
         'billing_city' => 'string',
         'billing_state' => 'string',
-        'billing_pincode' => 'string'
+        'billing_pincode' => 'string',
+        'gst_number' => 'string',
+        'organization' => 'string'
     ];
 }
