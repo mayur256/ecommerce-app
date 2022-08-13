@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('pincode', 6);
             $table->string('organization')->nullable();
             $table->string('user_type', 128)->nullable();
-            $table->string('user_type', 128)->nullable();
             $table->string('gender', 10)->nullable();
             $table->string('address')->nullable();
             $table->string('billing_address')->nullable();
