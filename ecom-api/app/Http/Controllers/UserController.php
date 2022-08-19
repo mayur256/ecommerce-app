@@ -105,8 +105,12 @@ class UserController extends Controller
         if ($validator->passes()) {
             try {
                 
-                if (Auth::attempt($inputs)) {
-                    $resPayload = "Success";
+                if ($token = Auth::attempt($inputs)) {
+                    $resPayload =[
+                        'access_token' => $token,
+                        'token_type' => 'bearer',
+                        'expires_in' => auth()->factory()->getTTL() * 60
+                    ];
                 } else {
                     $resCode = 400;
                     $error = true;
