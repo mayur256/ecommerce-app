@@ -96,7 +96,6 @@ class CategorySeeder extends Seeder
         ]);
 
         // reinstate foreign key checks
-        // deactivate foreign key checks
         \DB::statement("SET FOREIGN_KEY_CHECKS=1;");
     }
 }
