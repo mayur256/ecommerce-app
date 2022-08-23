@@ -81,8 +81,8 @@ class CategorySeeder extends Seeder
             ),
 
             8 => array(
-                'category_name' => 'Beauty',
-                'category_desc' => 'Make Up, Men\'s Grooming, Skin care, Hair etc.',
+                'category_name' => 'Jewelry',
+                'category_desc' => NULL,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ),

@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 255);
-            $table->float('price', 2);
+            $table->float('price', 10, 2);
             $table->string('desc', 255)->nullable();
             $table->integer('brand')->unsigned()->nullable()->index();
             $table->integer('category')->unsigned()->nullable()->index();
