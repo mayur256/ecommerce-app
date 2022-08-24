@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Mail;
 // Mailable classes
 use App\Mail\UserRegistered;
 
+// Utils
+// Constants
+use App\Utils\Constant;
+
 class UserController extends Controller
 {
     /**
@@ -61,7 +65,7 @@ class UserController extends Controller
             } catch(Exception $ex) {
                 $resCode = 500;
                 $error = true;
-                $resPayload['error_msg'] = "Internal Server Error";
+                $resPayload['error_msg'] = Constant::INTERNAL_SERVER_ERROR;
             }
         } else {
             // return a response with validation errors to client
@@ -114,12 +118,12 @@ class UserController extends Controller
                 } else {
                     $resCode = 400;
                     $error = true;
-                    $resPayload['error_msg'] = "Invalid Credentials";
+                    $resPayload['error_msg'] = Constant::INVALID_CREDS;
                 }
             } catch(Exception $ex) {
                 $resCode = 500;
                 $error = true;
-                $resPayload['error_msg'] = "Internal Server Error";
+                $resPayload['error_msg'] = Constant::INTERNAL_SERVER_ERROR;
             }
         } else {
             // return a response with validation errors to client
