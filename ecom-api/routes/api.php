@@ -24,7 +24,7 @@ Route::prefix('v1')->group(function() {
     Route::POST('login', 'UserController@login');
 });
 
-Route::middleware(['auth'])->prefix('v1')->group(function() {
+Route::middleware(['auth:api'])->prefix('v1')->group(function() {
     Route::GET('test', function(Request $request) {
         return "Hello World";
     });
