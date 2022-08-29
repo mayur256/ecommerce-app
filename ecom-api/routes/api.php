@@ -25,7 +25,6 @@ Route::prefix('v1')->group(function() {
 });
 
 Route::middleware(['auth:api'])->prefix('v1')->group(function() {
-    Route::GET('test', function(Request $request) {
-        return "Hello World";
-    });
+    // Product
+    Route::POST('product', 'ProductController@storeProduct');
 });

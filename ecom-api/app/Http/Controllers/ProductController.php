@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+// Models
+use App\Models\Product;
+
+// Facades
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Mail;
 
 // Utils
 // Constants
@@ -16,7 +24,7 @@ class ProductController extends Controller
      * @return Response
      * @desc Stores a product with details corresponding to request fields
      */
-    public function storeProduct() {
+    public function storeProduct(Request $request) {
         // Standard Response Vars
         $resCode = 200;
         $error = false;
@@ -38,6 +46,7 @@ class ProductController extends Controller
         if ($validator->passes()) {
             try {
                 // store in the database
+                $resPayload = Product::create($inputs);
             } catch(Exception $ex) {
                 $resCode = 500;
                 $error = true;
