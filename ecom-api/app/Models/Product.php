@@ -19,8 +19,8 @@ class Product extends Model
         'name',
         'desc',
         'price',
-        'assets',
-        'tags'
+        'brand',
+        'category'
     ];
     
     /**
@@ -43,6 +43,5 @@ class Product extends Model
         'assets' => 'string',
         'brand' => 'integer',
         'category' => 'string',
-        'tags' => 'string'
     ];
 }
