@@ -28,4 +28,5 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function() {
     // Product
     Route::POST('product', 'ProductController@storeProduct');
     Route::PUT('product/{productId}', 'ProductController@updateProduct');
+    Route::DELETE('product/{productId}', 'ProductController@deleteProduct');
 });

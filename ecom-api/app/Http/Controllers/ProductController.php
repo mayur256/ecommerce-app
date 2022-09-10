@@ -69,12 +69,12 @@ class ProductController extends Controller
     }
 
     /**
-     * @PUT /product
+     * @PUT /product/productId
      * @param Request $request
      * @return Response
-     * @desc Stores a product with details corresponding to request fields
+     * @desc Updates a product with details corresponding to request fields
      */
-    public function updateProduct(Request $request, $productId) {
+    public function updateProduct(Request $request, $productId = NULL) {
         // Standard Response Vars
         $resCode = 200;
         $error = false;
@@ -137,6 +137,40 @@ class ProductController extends Controller
             if (sizeof($inputs) === 0) {
                 $resPayload['error_msg'] = "No input field was specified";
             }
+        }
+
+        return response()->json([
+            'error' => $error,
+            'payload' => $resPayload,
+        ], $resCode);
+    }
+
+    /**
+     * @DELETE /product/productId
+     * @param Request $request
+     * @return Response
+     * @desc Deletes a product with a given id in the URL
+     */
+    public function deleteProduct($productId = NULL){
+         // Standard Response Vars
+        $resCode = 200;
+        $error = false;
+        $resPayload = [];
+
+        if ($productId) {
+            try {
+                $product = Product::find($productId);
+                $product->delete();
+                $resPayload['success_msg'] = "Product" . " " . Constant::DELETE_SUCCESS;
+            } catch(Exception $ex) {
+                $resCode = 500;
+                $error = true;
+                $resPayload['error_msg'] = Constant::INTERNAL_SERVER_ERROR;
+            }
+        } else {
+            $resCode = 400;
+            $error = true;
+            $resPayload['error_msg'] = Constant::SOMETHING_WRONG;
         }
 
         return response()->json([
