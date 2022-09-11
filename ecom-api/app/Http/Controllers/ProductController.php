@@ -160,8 +160,15 @@ class ProductController extends Controller
         if ($productId) {
             try {
                 $product = Product::find($productId);
-                $product->delete();
-                $resPayload['success_msg'] = "Product" . " " . Constant::DELETE_SUCCESS;
+                // Product exists
+                if ($product) {
+                    $product->delete();
+                    $resPayload['success_msg'] = "Product" . " " . Constant::DELETE_SUCCESS;
+                } else {
+                    $resCode = 400;
+                    $error = true;
+                    $resPayload['error_msg'] = "Product" . " " .Constant::NOT_FOUND;        
+                }
             } catch(Exception $ex) {
                 $resCode = 500;
                 $error = true;
@@ -178,4 +185,71 @@ class ProductController extends Controller
             'payload' => $resPayload,
         ], $resCode);
     }
+
+    /**
+     * @GET /product/productId
+     * @param Request $request
+     * @return Response
+     * @desc fetches a product with a given id in the URL
+     */
+    public function getProduct($productId = null){
+        // Standard Response Vars
+        $resCode = 200;
+        $error = false;
+        $resPayload = [];
+
+        if ($productId) {
+            try {
+                $product = Product::find($productId);
+                // Product is found
+                if ($product) {
+                    $resPayload = $product;
+                } else {
+                    $resCode = 400;
+                    $error = true;
+                    $resPayload['error_msg'] = "Product" . " " .Constant::NOT_FOUND;
+                }
+            } catch(Exception $ex) {
+                $resCode = 500;
+                $error = true;
+                $resPayload['error_msg'] = Constant::INTERNAL_SERVER_ERROR;
+            }
+        } else {
+            $resCode = 400;
+            $error = true;
+            $resPayload['error_msg'] = Constant::SOMETHING_WRONG;
+        }
+
+        return response()->json([
+            'error' => $error,
+            'payload' => $resPayload,
+        ], $resCode);
+    }
+
+    /**
+     * @GET /product
+     * @param Request $request
+     * @return Response
+     * @desc gets all product from database
+     */
+    public function getProducts(){
+        // Standard Response Vars
+        $resCode = 200;
+        $error = false;
+        $resPayload = [];
+
+        try {
+            $resPayload = Product::all();
+        } catch(Exception $ex) {
+            $resCode = 500;
+            $error = true;
+            $resPayload['error_msg'] = Constant::INTERNAL_SERVER_ERROR;
+        }
+
+        return response()->json([
+            'error' => $error,
+            'payload' => $resPayload,
+        ], $resCode);
+    }
+
 }

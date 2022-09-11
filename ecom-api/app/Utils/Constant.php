@@ -10,4 +10,5 @@ class Constant {
     const INVALID_CREDS = "Invalid Credentials";
     const SOMETHING_WRONG = "Something went wrong. Please try again later.";
     const DELETE_SUCCESS = "deleted successfully!";
+    const NOT_FOUND = "not found!";
 }
