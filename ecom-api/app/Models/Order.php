@@ -17,10 +17,8 @@ class Order extends Model
      */
     protected $fillable = [
         'summary',
-        'order_status',
         'payment_method',
-        'payment_status',
-        'ship_status'
+        'customer_id'
     ];
 
     /**
@@ -42,5 +40,6 @@ class Order extends Model
         'payment_method' => 'string',
         'payment_status' => 'integer',
         'ship_status' => 'string',
+        'customer_id' => 'integer'
     ];
 }

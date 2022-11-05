@@ -18,10 +18,10 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned()->index();
             $table->string('summary');
-            $table->string('order_status', 100);
-            $table->string('payment_method', 100);
-            $table->string('payment_status', 100);
-            $table->string('ship_status', 100);
+            $table->string('order_status', 100)->default('pending');
+            $table->string('payment_method', 100)->default('upi');
+            $table->string('payment_status', 100)->default('awaiting');
+            //$table->string('ship_status', 100);
             $table->timestamps(); // created_at, deleted_at
             $table->softDeletes(); // deleted_at
 
