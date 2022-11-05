@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // Models
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Order_Product;
 
 // Facades
 use Illuminate\Support\Facades\Validator;
@@ -61,12 +62,27 @@ class OrderController extends Controller
                         'customer_id' => Auth::id()
                     ]);
 
-                    /*foreach($products as $product) {
+                    $reqProductIds = array_map(fn($val) => $val['id'], $inputs['products']);
+                    // create an entry for product against order
+                    foreach($products as $product) {
+                        $productKey = array_search($product->id, $reqProductIds);
+                        
+                        if ($productKey === false) {
+                            // should ideally throw error here
+                            DB::rollBack();
+                            break;
+                        };
 
-                    }*/
-                    
-                    
+                        Order_Product::create([
+                            'order_id' => $order->id,
+                            'product_id' => $product->id,
+                            'quantity' => $inputs['products'][$productKey]['quantity'],
+                            'price' => $product->price
+                        ]);
+                    }
+                                        
                     DB::commit();
+                    $resPayload = "Order created successfully";
                 } else {
                     DB::rollBack();
                 }
