@@ -6,18 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model
+class Order_Product extends Model
 {
     use HasFactory, SoftDeletes;
-     /**
+    protected $table = "order_product";
+    
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'summary',
-        'payment_method',
-        'customer_id'
+        'order_id',
+        'product_id',
+        'quantity',
+        'price'
     ];
 
     /**
@@ -34,11 +37,9 @@ class Order extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'summary' => 'string',
-        'order_status' => 'string',
-        'payment_method' => 'string',
-        'payment_status' => 'integer',
-        'ship_status' => 'string',
-        'customer_id' => 'integer'
+        'order_id' => 'integer',
+        'product_id' => 'integer',
+        'quantity' => 'integer',
+        'price' => 'integer'
     ];
 }
