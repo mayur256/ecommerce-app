@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
+// Carbon Date/Time Package
+use Carbon\Carbon;
+
 // Mailable classes
 use App\Mail\UserRegistered;
 
@@ -144,17 +147,22 @@ class UserController extends Controller
     /**
      * @param {string} userName
      * @return void
-     * @desc - 
+     * @desc - sends a welcome email to the newly registered user
      */
     private function sendRegistrationNotification(User $user) {
         $userName = $user->first_name . "  " . $user->last_name;
         $email = $user->email;
-
+    
         try {
             Mail::to($email)
             ->send(new UserRegistered($userName));
+            
+            $user->email_verified_at = Carbon::now();
+            $user->save();
         } catch (Exception $ex) {
-
+            // handle error
+            $user->email_verified_at = null;
+            $user->save();
         }
     }
 }
